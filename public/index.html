@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TankFlow | Station JOVENA</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- CSS Dependencies -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="app-layout">
+    <aside class="sidebar" id="sidebar-wrapper">
+        <a class="brand" href="/">
+            <span class="brand-icon">
+                <i class="fa-solid fa-gas-pump"></i>
+            </span>
+            <span>
+                <strong class="brand-name">Tank<span>Flow</span></strong>
+                <small class="brand-subtitle">GESTION DES STOCKS</small>
+            </span>
+        </a>
+
+        <p class="menu-caption">MENU PRINCIPAL</p>
+
+        <nav class="side-menu">
+            <a href="#dashboard" class="menu-link active">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Tableau de bord</span>
+            </a>
+            <a href="#cuves" class="menu-link">
+                <i class="fa-solid fa-database"></i>
+                <span>Cuves</span>
+            </a>
+            <a href="#entrees" class="menu-link">
+                <i class="fa-solid fa-truck-ramp-box"></i>
+                <span>Entrées / Livraisons</span>
+            </a>
+            <a href="#sorties" class="menu-link">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Sorties</span>
+            </a>
+            <a href="#mouvements" class="menu-link">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <span>Mouvements</span>
+            </a>
+            <a href="#carburants" class="menu-link">
+                <i class="fa-solid fa-gas-pump"></i>
+                <span>Carburants</span>
+            </a>
+            <a href="#alertes" class="menu-link">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Alertes</span>
+            </a>
+            <a href="#rapports" class="menu-link">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Rapports</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-status">
+            <span class="status-dot"></span>
+            <div>
+                <strong>TankFlow</strong>
+                <small>Gestion des stocks</small>
+            </div>
+        </div>
+    </aside>
+
+        <!-- CONTENU PRINCIPAL -->
+    <main class="main-content">
+
+            <!-- TOPBAR -->
+        <header class="topbar">
+            <button id="menu-toggle" class="mobile-menu" aria-label="Ouvrir le menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="station-info">
+                <i class="fa-solid fa-location-dot"></i>
+                
+                <div><strong>Station JOVENA</strong>
+                <small>Madagascar</small></div>
+            </div>
+
+                <div class="topbar-right">
+                <span class="live-label">
+                    <span class="status-dot"></span>SYSTÈME EN LIGNE </span>
+                <span class="topbar-divider"></span>
+                    <!--admin-info -->
+                <div class="admin-info">
+                    <span class="admin-avatar">
+                        <!-- Nampiasa sary avatar avy amin'ny UI Avatars -->
+                        <img src="/jovena.png" alt="Admin" width="36" height="36" style="border-radius: 50%;">
+                    </span>
+                    <div>
+                        <strong>Admin TankFlow</strong>
+                        <small>Administrateur</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ZONE DE CONTENU DYNAMIQUE -->
+        <div class="dashboard-content">
+
+            <!-- DASHBOARD -->
+            <div id="page-dashboard" class="page-section">
+                
+                <section class="hero">
+                    <img src="/jovena.png" alt="Station JOVENA" class="hero-image">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <span class="hero-kicker">
+                            <i class="fa-solid fa-circle-check"></i> ESPACE DE GESTION
+                        </span>
+                        <h1>TankFlow <span>JOVENA</span></h1>
+                        <p>Gestion et suivi des stocks de carburant</p>
+                        <div class="hero-features">
+                            <span><i class="fa-solid fa-database"></i> Suivi des cuves</span>
+                            <span><i class="fa-solid fa-chart-line"></i> Analyse des stocks</span>
+                            <span><i class="fa-solid fa-bell"></i> Alertes</span>
+                        </div>
+                    </div>
+                    <div class="hero-mark">
+                        <i class="fa-solid fa-gas-pump"></i>
+                        <span>STATION-SERVICE<br><strong>JOVENA</strong></span>
+                    </div>
+                </section>
+
+                <section class="page-heading">
+                    <div>
+                        <span class="section-eyebrow">VUE D'ENSEMBLE</span>
+                        <h2>Tableau de bord</h2>
+                        <p>Vue synthétique de l'état des stocks de carburant.</p>
+                    </div>
+                    <div class="date-chip">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span>Données en temps réel</span>
+                    </div>
+                </section>
+
+                <section class="stats-grid">
+                    <article class="stat-card cyan">
+                        <div class="stat-card-header">
+                            <span>Total des stocks</span>
+                            <span class="stat-icon"><i class="fa-solid fa-droplet"></i></span>
+                        </div>
+                        <h3><span id="val-total-stock">0</span> <small>L</small></h3>
+                        <p>Volume disponible</p>
+                    </article>
+
+                    <article class="stat-card purple">
+                        <div class="stat-card-header">
+                            <span>Capacité totale</span>
+                            <span class="stat-icon"><i class="fa-solid fa-gauge-high"></i></span>
+                        </div>
+                        <h3><span id="val-total-capacite">0</span> <small>L</small></h3>
+                        <p>Capacité des cuves</p>
+                    </article>
+
+                    <article class="stat-card green">
+                        <div class="stat-card-header">
+                            <span>Nombre de cuves</span>
+                            <span class="stat-icon"><i class="fa-solid fa-database"></i></span>
+                        </div>
+                        <h3><span id="val-total-cuves">0</span></h3>
+                        <p>Cuves actives</p>
+                    </article>
+
+                    <article class="stat-card red">
+                        <div class="stat-card-header">
+                            <span>Alertes actives</span>
+                            <span class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                        </div>
+                        <h3><span id="val-total-alertes">0</span></h3>
+                        <p>À vérifier</p>
+                    </article>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3><i class="fa-solid fa-database"></i> Liste des cuves</h3>
+                            <p>Aperçu de toutes vos cuves.</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table tank-table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Identifiant</th>
+                                    <th>Nom</th>
+                                    <th>Carburant</th>
+                                    <th>Capacité</th>
+                                    <th>Stock actuel</th>
+                                    <th>Niveau</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liste-cuves"> </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <span>© 2026 TankFlow</span>
+                    <span>Gestion et suivi des stocks de carburant</span>
+                    <span>Station JOVENA · Madagascar</span>
+                </footer>
+            </div>
+
+           <!--  CUVES -->
+            <div id="page-cuves" class="page-section" style="display: none;">
+                <section class="page-heading mt-2">
+                    <div>
+                        <span class="section-eyebrow">GESTION</span>
+                        <h2>Liste des cuves</h2>
+                        <p>Gérez vos cuves de carburant.</p>
+                    </div>
+                </section>
+                <section class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3><i class="fa-solid fa-database"></i> Toutes les cuves</h3>
+                        </div>
+                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modalAjouterCuve">
+                            <i class="fa-solid fa-plus"></i> Ajouter
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table tank-table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Identifiant</th>
+                                    <th>Nom</th>
+                                    <th>Carburant</th>
+                                    <th>Capacité</th>
+                                    <th>Stock actuel</th>
+                                    <th>Niveau</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liste-cuves-page">
+                                <!-- Ho fenoin'ny JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- FIZARANA 3: ENTRÉES / LIVRAISONS -->
+            <!-- ========================================== -->
+            <div id="page-entrees" class="page-section" style="display: none;">
+                <section class="page-heading mt-2">
+                    <div>
+                        <span class="section-eyebrow">MOUVEMENTS</span>
+                        <h2>Entrées / Livraisons</h2>
+                        <p>Enregistrez une nouvelle livraison de carburant.</p>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fa-solid fa-truck-ramp-box"></i> Nouvelle livraison</h3>
+                    </div>
+                    <div class="p-4">
+                        <form id="formEntree">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-light">Choisir la cuve</label>
+                                    <select class="form-select bg-dark text-white border-secondary" id="cuveEntree" required>
+                                        <option value="">-- Sélectionner --</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-light">Quantité (L)</label>
+                                    <input type="number" class="form-control bg-dark text-white border-secondary" id="quantiteEntree" required min="1" placeholder="Ex: 5000">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info fw-bold"><i class="fa-solid fa-check"></i> Enregistrer l'entrée</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- SORTIES -->
+            <div id="page-sorties" class="page-section" style="display: none;">
+                <section class="page-heading mt-2">
+                    <div>
+                        <span class="section-eyebrow">MOUVEMENTS</span>
+                        <h2>Sorties</h2>
+                        <p>Enregistrez une vente ou une sortie de carburant.</p>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fa-solid fa-arrow-right-from-bracket"></i> Nouvelle sortie</h3>
+                    </div>
+                    <div class="p-4">
+                        <form id="formSortie">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-light">Choisir la cuve</label>
+                                    <select class="form-select bg-dark text-white border-secondary" id="cuveSortie" required>
+                                        <option value="">-- Sélectionner --</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label text-light">Quantité (L)</label>
+                                    <input type="number" class="form-control bg-dark text-white border-secondary" id="quantiteSortie" required min="1" placeholder="Ex: 200">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-danger fw-bold"><i class="fa-solid fa-arrow-up"></i> Enregistrer la sortie</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+
+            <div id="page-mouvements" class="page-section" style="display: none;">
+                <section class="page-heading mt-2">
+                    <div>
+                        <span class="section-eyebrow">HISTORIQUE</span>
+                        <h2>Mouvements</h2>
+                        <p>Historique de toutes les entrées et sorties.</p>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fa-solid fa-arrows-rotate"></i> Journal des mouvements</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table tank-table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date & Heure</th>
+                                    <th>Cuve</th>
+                                    <th>Type</th>
+                                    <th>Quantité</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liste-mouvements">
+                                <!-- Ho fenoin'ny JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <div id="page-carburants" class="page-section" style="display: none;">
+                <section class="page-heading mt-2">
+                    <div>
+                        <span class="section-eyebrow">CATALOGUE</span>
+                        <h2>Types de Carburants</h2>
+                        <p>Vue d'ensemble des stocks par type de carburant.</p>
+                    </div>
+                </section>
+
+                <div class="row" id="carburants-container">
+                </div>
+            </div>
+
+            <div id="page-alertes" class="page-section" style="display: none;">
+                <section class="page-heading mt-2">
+                    <div>
+                        <span class="section-eyebrow">SURVEILLANCE</span>
+                        <h2>Alertes de stock</h2>
+                        <p>Cuves dont le niveau est critique (inférieur à 40%).</p>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fa-solid fa-triangle-exclamation text-danger"></i> Cuves à vérifier</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table tank-table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Identifiant</th>
+                                    <th>Nom de la cuve</th>
+                                    <th>Carburant</th>
+                                    <th>Stock actuel</th>
+                                    <th>Niveau</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liste-alertes">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <div id="page-rapports" class="page-section" style="display: none;">
+                <section class="page-heading mt-2">
+                    <div>
+                        <span class="section-eyebrow">ANALYSE</span>
+                        <h2>Rapports & Graphiques</h2>
+                        <p>Analyse visuelle des stocks de carburant.</p>
+                    </div>
+                </section>
+
+                <div class="row">
+                    <!--Répartition  -->
+                    <div class="col-lg-6 mb-4">
+                        <section class="panel h-100">
+                            <div class="panel-heading"><h3><i class="fa-solid fa-chart-pie text-info"></i> Niveau des stocks par carburant</h3></div>
+                            <div class="p-4 d-flex justify-content-center" style="height: 300px;">
+                                <canvas id="chartRepartition"></canvas>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!--  Niveau des cuves  -->
+                    <div class="col-lg-6 mb-4">
+                        <section class="panel h-100">
+                            <div class="panel-heading"><h3><i class="fa-solid fa-chart-column text-success"></i> Niveau des cuves (%)</h3></div>
+                            <div class="p-4" style="height: 300px;">
+                                <canvas id="chartCuves"></canvas>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Évolution  -->
+                    <div class="col-lg-12 mb-4">
+                        <section class="panel h-100">
+                            <div class="panel-heading"><h3><i class="fa-solid fa-chart-line text-primary"></i> Évolution des stocks (7 derniers jours)</h3></div>
+                            <div class="p-4" style="height: 350px;">
+                                <canvas id="chartEvolution"></canvas>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+        </div> 
+    </main>
+</div>
+<!-- MODAL AJOUTER UNE CUVE -->
+<div class="modal fade" id="modalAjouterCuve" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background:
+         #0b1727; border: 1px solid rgba(0, 210, 255, 0.3);">
+            <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title text-white"><i class="fa-solid fa-plus text-info">
+                </i> Ajouter une cuve</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                   </button>
+            </div>
+            <div class="modal-body">
+                <form id="formAjouterCuve">
+                    <div class="mb-3">
+                        <label class="form-label text-light">Nom de la cuve</label>
+                        <input type="text" class="form-control bg-dark text-white border-secondary" id="nom" required placeholder="Ex: Cuve Jovena 1">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-light">Carburant</label>
+                        <select class="form-select bg-dark text-white border-secondary" id="carburant" required>
+                            <option value="Gasoil">Gasoil</option>
+                            <option value="Essence">Essence</option>
+                            <option value="Super">Super</option>
+                            <option value="Pétrole">Pétrole</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-light">Capacité (L)</label>
+                        <input type="number" class="form-control bg-dark text-white border-secondary" id="capacite" required min="1" placeholder="Ex: 10000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-light">Stock Initial (L)</label>
+                        <input type="number" class="form-control bg-dark text-white border-secondary" id="stock" required min="0" placeholder="Ex: 5000">
+                    </div>
+                    <button type="submit" class="btn btn-info w-100 fw-bold">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts Bootstrap  -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Scripts Custom -->
+<script>
+    // Mobile Menu Toggle
+    document.getElementById("menu-toggle").addEventListener("click", function () {
+        document.getElementById("sidebar-wrapper").classList.toggle("sidebar-open");
+    });
+</script>
+<script src="/js/api.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
