@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const menuLinks = document.querySelectorAll('.menu-link');
     const sections = document.querySelectorAll('.page-section');
+    const sidebar = document.getElementById('sidebar-wrapper'); // <-- Nampidirina eto
 
     sections.forEach(section => {
         if (section.id !== 'page-dashboard') section.style.display = 'none';
@@ -16,19 +17,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // --- FONCTION FIFINDRANA PEJY ---
     window.navigateTo = async (targetId) => {
+        // Afenina ny pejy rehetra
         sections.forEach(section => section.style.display = 'none');
+        
+        // Asehoy ilay pejy tadiavina
         const targetSection = document.getElementById('page-' + targetId);
         if (targetSection) targetSection.style.display = 'block';
 
+        // Havaozina ny loko (active) ao amin'ny menu
         menuLinks.forEach(l => {
             l.classList.remove('active');
-            if (l.getAttribute('href') === '#' + targetId) l.classList.add('active');
+            if (l.getAttribute('href') === '#' + targetId) {
+                l.classList.add('active');
+            }
         });
 
-        // MAKA DONNÉES VAOVAO ISAKY NY MISY CLICK
+        // --- TENA ZAVA-DEHIBE: Manafina ny menu rehefa misy click ---
+        if (sidebar) {
+            sidebar.classList.remove('sidebar-open');
+        }
+
+        // MAKA NY DONNÉES VAOVAO (Ho an'ny Dashboard)
         const freshCuves = await getCuves(); 
         updateInterface(freshCuves);
 
+        // Manavao ny pejy manokana
         if (targetId === 'mouvements') {
             const mouvements = await getMouvements();
             renderMouvements(mouvements);
@@ -38,6 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (targetId === 'rapports') renderChartsPro(freshCuves); 
     };
 
+    // Rehefa manindry ny menu
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -117,7 +131,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// ==========================================
 // FONCTIONS
+// ==========================================
 
 function updateInterface(cuves) {
     updateStats(cuves);
@@ -137,7 +153,6 @@ function updateStats(cuves) {
         totalCapacite += cuve.capacite;
         
         const pourcentage = (cuve.stock / cuve.capacite) * 100;
-        // Raha latsaky ny 40% NA mihoatra ny 100% (Débordement)
         if (pourcentage <= 40 || pourcentage > 100) {
             alertes++;
         }
